@@ -1,0 +1,37 @@
+<html layout:decorator="layout">
+
+<div layout:fragment="content">
+
+    <a class="btn btn-success pull-left" th:href="@{/tasks/new}">Add new task</a>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th width="10%">#</th>
+            <th width="15%">Summary</th>
+            <th width="30%">Description</th>
+            <th width="10%">Status</th>
+            <th width="10%">Create Date</th>
+            <th width="10%">Update Date</th>
+            <th width="15%">Action</th>
+        </tr>
+        </thead>
+        <tbody style="text-align: left;">
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.summary}"></td>
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.status}"></td>
+            <td th:text="${#dates.format(task.createdAt, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(task.updatedAt, 'yyyy-MM-dd')}"></td>
+            <td>
+                <a th:href="@{'/tasks/{id}/edit'(id=${task.id})}" th:attr="name=${task.summary}">edit</a> |
+                <a th:href="@{'/tasks/{id}'(id=${task.id})}" th:attr="name=${task.summary}">show</a> |
+                <a th:href="@{'/tasks/{id}/delete'(id=${task.id})}" th:attr="name=${task.summary}">delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</html>

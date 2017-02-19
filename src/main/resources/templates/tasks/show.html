@@ -1,0 +1,21 @@
+<html layout:decorator="layout">
+<div layout:fragment="content">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="exampleInputTitle" class="pull-left">Summary</label>
+            <div th:text="@{task.summary}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputDescription" class="pull-left">Description</label>
+            <div th:text="@{task.description}" />
+        </div>
+
+        <div class="form-group">
+            <label for="status" class="pull-left">Status</label>
+            <div th:text="@{task.status}" />
+        </div>
+
+    </div>
+</div>
+</html>
