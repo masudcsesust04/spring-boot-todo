@@ -6,12 +6,15 @@ import com.todo.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,17 +38,28 @@ public class TasksController {
     }
 
     @RequestMapping(value = Route.TASKS_NEW, method = RequestMethod.GET)
-    public String newTask() {
+    public String newTask(Model model) {
+
+        Task task = new Task();
+        task.setStatus("In progress");
+
+        model.addAttribute(task);
+
         return "tasks/new";
     }
 
     @RequestMapping(value = Route.TASKS_CREATE, method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam("summary") String summary,
-                               @RequestParam("description") String description) {
+    public String create(@Valid Task task, BindingResult bindingResult, Model model) {
 
-        taskRepository.save(new Task(summary, description, "in-progress"));
+        if(bindingResult.hasErrors()) {
+            return "/tasks/new";
+        } else {
+            task.setCreatedAt(new Date());
+            task.setUpdatedAt(new Date());
+            taskRepository.save(task);
 
-        return new ModelAndView("redirect:/tasks");
+            return "redirect:/tasks";
+        }
     }
 
     @RequestMapping(value = Route.TASKS_SHOW, method = RequestMethod.GET)
@@ -66,17 +80,21 @@ public class TasksController {
     }
 
     @RequestMapping(value = Route.TASKS_UPDATE, method = RequestMethod.POST)
-    public ModelAndView update(@RequestParam("id") long id,
-                               @RequestParam("summary") String summary,
-                               @RequestParam("description") String description) {
+    public String update(@Valid Task task, BindingResult bindingResult, Model model) {
 
-        Task task = taskRepository.findOne(id);
-        task.setSummary(summary);
-        task.setDescription(description);
-        task.setUpdatedAt(new Date());
-        taskRepository.save(task);
+        if(bindingResult.hasErrors()) {
+            return "tasks/edit";
+        } else {
 
-        return new ModelAndView("redirect:/tasks");
+            Task updateTask = taskRepository.findOne(task.getId());
+            updateTask.setSummary(task.getSummary());
+            updateTask.setDescription(task.getDescription());
+            updateTask.setStatus(task.getStatus());
+            updateTask.setUpdatedAt(new Date());
+            taskRepository.save(updateTask);
+
+            return ("redirect:/tasks");
+        }
     }
 
     @RequestMapping(value = Route.TASKS_DELETE, method = RequestMethod.GET)

@@ -8,7 +8,7 @@ public class Route {
     public static final String ROOT = "/";
 
     public static final String LOGIN = "/login";
-    public static final String LOOUT = "/loout";
+    public static final String LOGOUT = "/logout";
 
     public static final String TASKS_INDEX = "tasks";
     public static final String TASKS_NEW = "tasks/new";
@@ -17,6 +17,4 @@ public class Route {
     public static final String TASKS_EDIT = "tasks/{id}/edit";
     public static final String TASKS_UPDATE = "tasks/update";
     public static final String TASKS_DELETE = "tasks/{id}/delete";
-
-
 }

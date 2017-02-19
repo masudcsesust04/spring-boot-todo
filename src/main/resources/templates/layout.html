@@ -32,7 +32,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li th:classappend="${controllerName == 'Home'}? 'active'"><a href="/">Home</a></li>
+                <li th:classappend="${controllerName == 'Home'}? 'active'"><a th:href="@{/}">Home</a></li>
                 <li th:classappend="${controllerName == 'Tasks'}? 'active'"><a th:href="@{/tasks}">Tasks</a></li>
                 <li th:classappend="${controllerName == 'Login'}? 'active'"><a th:href="@{/login}">Login</a></li>
                 <li><a href="/contact">Contact</a></li>
@@ -41,6 +41,8 @@
                         <button class="btn btn-danger" type="submit">Sign Out</button>
                     </form>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -60,7 +62,7 @@
 
 <div class="starter-template">
 
-    <div class="col-sm-12" layout:fragment="content">
+    <div class="row" layout:fragment="content">
         <!-- ============================================================================ -->
         <!-- This content is only used for static prototyping purposes (natural templates)-->
         <!-- and is therefore entirely optional.                                          -->
@@ -82,7 +84,7 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted text-center">&copy; Spring boot, 2017</p>
+        <p class="text-muted text-center">&copy; Spring boot todo, 2017</p>
     </div>
 </footer>
 </body>

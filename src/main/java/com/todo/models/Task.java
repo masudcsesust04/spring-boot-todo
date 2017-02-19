@@ -1,5 +1,7 @@
 package com.todo.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,9 +18,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty
     @Column(name = "summary")
     private String summary;
 
+    @NotEmpty
     @Column(name = "description")
     private String description;
 

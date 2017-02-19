@@ -24,7 +24,7 @@ public class LoginController {
         return new ModelAndView("login", "error", error);
     }
 
-    @RequestMapping(value = Route.LOOUT, method = RequestMethod.POST)
+    @RequestMapping(value = Route.LOGOUT, method = RequestMethod.POST)
     public String logout() {
         return "";
     }
