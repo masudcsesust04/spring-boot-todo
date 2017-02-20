@@ -10,6 +10,8 @@ public class Route {
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
 
+    public static final String DASH = "/dash";
+
     public static final String TASKS_INDEX = "tasks";
     public static final String TASKS_NEW = "tasks/new";
     public static final String TASKS_CREATE = "tasks/create";

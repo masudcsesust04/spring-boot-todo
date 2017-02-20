@@ -35,13 +35,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/dash", true)
                 .permitAll()
                 .and()
             .logout()
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
-        http.csrf().disable();
+//        http.csrf().disable();
     }
 
 //    @Autowired
