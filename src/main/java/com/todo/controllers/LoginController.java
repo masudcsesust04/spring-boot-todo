@@ -21,7 +21,7 @@ public class LoginController {
 
     @RequestMapping(value = Route.LOGIN, method = RequestMethod.GET)
     public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
-        return new ModelAndView("login", "error", error);
+        return new ModelAndView("auth/login", "error", error);
     }
 
     @RequestMapping(value = Route.LOGOUT, method = RequestMethod.POST)
