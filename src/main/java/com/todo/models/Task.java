@@ -29,22 +29,48 @@ public class Task {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "date_of_work")
+    private Date dateOfWork;
+
+    @Column(name = "time_spent")
+    private String timeSpent;
+
     @Column(name = "created_at")
     private Date createdAt;
 
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    public Task() {
-        //
-    }
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Task(String summary, String description, String status) {
+    @ManyToOne()
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    public Task() {}
+
+    public Task(String summary, String description, String status, Date dateOfWork, String timeSpent) {
         this.summary = summary;
         this.description = description;
         this.status = status;
+        this.dateOfWork = dateOfWork;
+        this.timeSpent = timeSpent;
         this.createdAt = new Date();
         this.updatedAt = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", summary='" + summary + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", dateOfWork=" + dateOfWork +
+                ", timeSpent='" + timeSpent + '\'' +
+                '}';
     }
 
     public long getId() {
@@ -79,6 +105,22 @@ public class Task {
         this.status = status;
     }
 
+    public Date getDateOfWork() {
+        return dateOfWork;
+    }
+
+    public void setDateOfWork(Date dateOfWork) {
+        this.dateOfWork = dateOfWork;
+    }
+
+    public String getTimeSpent() {
+        return timeSpent;
+    }
+
+    public void setTimeSpent(String timeSpent) {
+        this.timeSpent = timeSpent;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -94,4 +136,13 @@ public class Task {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

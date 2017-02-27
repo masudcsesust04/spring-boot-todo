@@ -40,4 +40,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new UserDetailsImpl(user);
     }
 
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
+
 }

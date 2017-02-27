@@ -1,0 +1,40 @@
+<html layout:decorator="layout">
+<div layout:fragment="content">
+    <div class="col-sm-12">
+
+        <h1 class="text-left">Create new user</h1>
+        <hr />
+
+        <form class="" th:object="${user}" th:action="@{/users/create}" method="post" role="form">
+            <div class="form-group">
+                <label for="email" class="pull-left">Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" th:field="*{email}" />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="help-block">Email errors</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="pull-left">Password <span class="text-danger">*</span></label>
+                <input type="password" class="form-control" th:field="*{password}" />
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="help-block">Password errors</span>
+            </div>
+
+            <div class="form-group">
+                <label for="full-name" class="pull-left">Full name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" th:field="*{fullName}" />
+                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" th:class="help-block">Full name errors</span>
+            </div>
+
+            <div class="form-group">
+                <label for="role" class="pull-left">Role</label>
+                <select class="form-control" name="">
+                    <option value="-"> - Select - </option>
+                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}">Role</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submit" class="btn btn-primary pull-left">Submit</button>
+        </form>
+
+    </div>
+</div>
+</html>

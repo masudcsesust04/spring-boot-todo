@@ -1,0 +1,40 @@
+<html layout:decorator="layout">
+<div layout:fragment="content">
+    <div class="col-sm-12">
+
+        <h1 class="text-left">Update project</h1>
+        <hr />
+
+        <form class="" th:object="${project}" th:action="@{/projects/update}" method="post" role="form">
+
+            <input type="hidden" class="form-control" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="name" class="pull-left">Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" th:field="*{name}" />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="help-block">Name is a required field!</span>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="pull-left">Description <span class="text-danger">*</span></label>
+                <textarea rows="3" class="form-control" th:field="*{description}" />
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="help-block">Description is a required field!</span>
+            </div>
+
+            <div class="form-group">
+                <label for="url" class="pull-left">URL</label>
+                <input type="text" class="form-control" th:field="*{url}" />
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" th:field="*{isActive}" /> Active
+                </label>
+            </div>
+
+            <button type="submit" id="submit" class="btn btn-primary pull-left">Update!</button>
+        </form>
+
+    </div>
+</div>
+</html>

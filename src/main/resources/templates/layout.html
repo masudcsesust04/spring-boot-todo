@@ -37,7 +37,9 @@
                     <li th:classappend="${controllerName == 'Help'}" sec:authorize="!isAuthenticated()"><a th:href="@{/contact}">Help</a></li>
                     <li th:classappend="${controllerName == 'Login'}? 'active'" sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
                     <li th:classappend="${controllerName == 'Dash'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/dash}">Dash</a></li>
+                    <li th:classappend="${controllerName == 'Projects'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/projects}">Projects</a></li>
                     <li th:classappend="${controllerName == 'Tasks'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/tasks}">Tasks</a></li>
+                    <li th:classappend="${controllerName == 'Users'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/users}">Users</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" >
                     <li>
