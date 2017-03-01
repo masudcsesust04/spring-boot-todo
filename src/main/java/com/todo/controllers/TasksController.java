@@ -4,13 +4,10 @@ import com.todo.config.Route;
 import com.todo.models.Project;
 import com.todo.models.Task;
 import com.todo.models.User;
-import com.todo.repositories.ProjectRepository;
-import com.todo.repositories.TaskRepository;
 import com.todo.services.ProjectService;
-import com.todo.services.UserDetailsImpl;
+import com.todo.services.TaskService;
 import com.todo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by masud on 2/17/17.
@@ -39,7 +34,7 @@ public class TasksController {
     private UserService userService;
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskService taskService;
 
     @Autowired
     private ProjectService projectService;
@@ -47,7 +42,7 @@ public class TasksController {
     @RequestMapping(value = Route.TASKS_INDEX, method = RequestMethod.GET)
     public String index(Model model) {
 
-        Iterable<Task> tasks = taskRepository.findAll();
+        Iterable<Task> tasks = taskService.findAll();
         model.addAttribute("tasks", tasks);
 
         return "tasks/index";
@@ -80,7 +75,7 @@ public class TasksController {
             task.setProject(projectService.findOne(project_id));
             task.setCreatedAt(new Date());
             task.setUpdatedAt(new Date());
-            taskRepository.save(task);
+            taskService.save(task);
 
             return "redirect:/tasks";
         }
@@ -89,7 +84,7 @@ public class TasksController {
     @RequestMapping(value = Route.TASKS_SHOW, method = RequestMethod.GET)
     public String show(@PathVariable long id, Model model) {
 
-        model.addAttribute("task", taskRepository.findOne(id));
+        model.addAttribute("task", taskService.findOne(id));
 
         return "tasks/show";
     }
@@ -97,7 +92,7 @@ public class TasksController {
     @RequestMapping(value = Route.TASKS_EDIT, method = RequestMethod.GET)
     public String edit(@PathVariable long id, Model model) {
 
-        Task task = taskRepository.findOne(id);
+        Task task = taskService.findOne(id);
         model.addAttribute("task", task);
 
         return "tasks/edit";
@@ -110,12 +105,12 @@ public class TasksController {
             return "tasks/edit";
         } else {
 
-            Task updateTask = taskRepository.findOne(task.getId());
+            Task updateTask = taskService.findOne(task.getId());
             updateTask.setSummary(task.getSummary());
             updateTask.setDescription(task.getDescription());
             updateTask.setStatus(task.getStatus());
             updateTask.setUpdatedAt(new Date());
-            taskRepository.save(updateTask);
+            taskService.save(updateTask);
 
             return ("redirect:/tasks");
         }
@@ -124,7 +119,7 @@ public class TasksController {
     @RequestMapping(value = Route.TASKS_DELETE, method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable long id) {
 
-        taskRepository.delete(id);
+        taskService.delete(id);
 
         return new ModelAndView("redirect:/tasks");
     }

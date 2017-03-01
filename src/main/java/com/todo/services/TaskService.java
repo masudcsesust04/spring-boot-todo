@@ -24,4 +24,16 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public Task save(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public Task findOne(Long id) {
+        return taskRepository.findOne(id);
+    }
+
+    public void delete(Long id) {
+        taskRepository.delete(id);
+    }
+
 }
