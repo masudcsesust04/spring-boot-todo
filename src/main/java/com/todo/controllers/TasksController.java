@@ -1,9 +1,19 @@
 package com.todo.controllers;
 
 import com.todo.config.Route;
+import com.todo.models.Project;
 import com.todo.models.Task;
+import com.todo.models.User;
+import com.todo.repositories.ProjectRepository;
 import com.todo.repositories.TaskRepository;
+import com.todo.services.ProjectService;
+import com.todo.services.UserDetailsImpl;
+import com.todo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +36,13 @@ import java.util.List;
 public class TasksController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private ProjectService projectService;
 
     @RequestMapping(value = Route.TASKS_INDEX, method = RequestMethod.GET)
     public String index(Model model) {
@@ -40,20 +56,28 @@ public class TasksController {
     @RequestMapping(value = Route.TASKS_NEW, method = RequestMethod.GET)
     public String newTask(Model model) {
 
+        Iterable<Project> projects = projectService.findAll();
         Task task = new Task();
         task.setStatus("In progress");
 
+        model.addAttribute("projects", projects);
         model.addAttribute(task);
 
         return "tasks/new";
     }
 
     @RequestMapping(value = Route.TASKS_CREATE, method = RequestMethod.POST)
-    public String create(@Valid Task task, BindingResult bindingResult, Model model) {
+    public String create(@Valid Task task, BindingResult bindingResult, Model model, @RequestParam long project_id) {
 
         if(bindingResult.hasErrors()) {
             return "/tasks/new";
         } else {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetail = (UserDetails) authentication.getPrincipal();
+            User u = userService.findByEmail(userDetail.getUsername());
+            task.setUser(u);
+            task.setProject(projectService.findOne(project_id));
             task.setCreatedAt(new Date());
             task.setUpdatedAt(new Date());
             taskRepository.save(task);

@@ -6,6 +6,15 @@
         <hr />
 
         <form class="" th:object="${task}" th:action="@{/tasks/create}" method="post" role="form">
+
+            <div class="form-group">
+                <label for="project" class="pull-left">Select project</label>
+                <select class="form-control" name="project_id">
+                    <option value="-"> - Select - </option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="summary" class="pull-left">Summary <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" th:field="*{summary}" />

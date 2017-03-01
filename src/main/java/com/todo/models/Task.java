@@ -51,12 +51,14 @@ public class Task {
 
     public Task() {}
 
-    public Task(String summary, String description, String status, Date dateOfWork, String timeSpent) {
+    public Task(String summary, String description, String status, Date dateOfWork, String timeSpent, User user, Project project) {
         this.summary = summary;
         this.description = description;
         this.status = status;
         this.dateOfWork = dateOfWork;
         this.timeSpent = timeSpent;
+        this.user = user;
+        this.project = project;
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -145,4 +147,11 @@ public class Task {
         this.user = user;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }
