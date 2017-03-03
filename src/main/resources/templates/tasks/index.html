@@ -37,6 +37,33 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <!--<div class="form-group col-md-1">-->
+            <!--<select class="form-control pagination" id="pageSizeSelect">-->
+                <!--<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <div th:if="${tasks.getTotalPages() != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${tasks.getNumber() == 0} ? disabled">
+                    <a class="pageLink" th:href="@{${route}(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${tasks.getNumber() == 0} ? disabled">
+                    <a class="pageLink" th:href="@{${route}(pageSize=${selectedPageSize}, page=${tasks.getNumber()})}">&larr;</a>
+                </li>
+                <li th:class="${tasks.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pagination.getFirstPage(), pagination.getLastPage())}">
+                    <a class="pageLink" th:href="@{${route}(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+                </li>
+                <li th:class="${tasks.getNumber() + 1 == tasks.getTotalPages()} ? disabled">
+                    <a class="pageLink" th:href="@{${route}(pageSize=${selectedPageSize}, page=${tasks.getNumber() + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${tasks.getNumber() + 1 == tasks.getTotalPages()} ? disabled">
+                    <a class="pageLink" th:href="@{${route}(pageSize=${selectedPageSize},page=${tasks.getTotalPages()})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 </html>

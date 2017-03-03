@@ -3,6 +3,8 @@ package com.todo.services;
 import com.todo.models.Task;
 import com.todo.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +24,10 @@ public class TaskService {
 
     public Iterable<Task> findAll() {
         return taskRepository.findAll();
+    }
+
+    public Page<Task> findAllPageable(Pageable pageable) {
+        return taskRepository.findAll(pageable);
     }
 
     public Task save(Task task) {

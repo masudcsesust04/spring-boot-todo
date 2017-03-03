@@ -1,5 +1,6 @@
 package com.todo.controllers;
 
+import com.todo.config.Pagination;
 import com.todo.config.Route;
 import com.todo.models.Project;
 import com.todo.models.Task;
@@ -8,6 +9,8 @@ import com.todo.services.ProjectService;
 import com.todo.services.TaskService;
 import com.todo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +33,11 @@ import java.util.Date;
 @Controller
 public class TasksController {
 
+    private static final int MAX_PAGING_BUTTONS = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 10;
+    private static final int[] PAGE_SIZES = { 5, 10, 20 };
+
     @Autowired
     private UserService userService;
 
@@ -40,9 +48,19 @@ public class TasksController {
     private ProjectService projectService;
 
     @RequestMapping(value = Route.TASKS_INDEX, method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                        @RequestParam(value = "page", required = false) Integer page) {
 
-        Iterable<Task> tasks = taskService.findAll();
+        int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+        int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+
+        Page<Task> tasks = taskService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Pagination pagination = new Pagination(tasks.getTotalPages(), tasks.getNumber(), MAX_PAGING_BUTTONS);
+
+        model.addAttribute("selectedPageSize", evalPageSize);
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("route", Route.TASKS_INDEX);
         model.addAttribute("tasks", tasks);
 
         return "tasks/index";
