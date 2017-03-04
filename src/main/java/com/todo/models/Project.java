@@ -12,6 +12,7 @@ import java.util.Set;
  */
 
 @Entity
+@Table(name = "projects")
 public class Project {
 
     @Id
@@ -22,6 +23,7 @@ public class Project {
     private String name;
 
     @NotEmpty
+    @Column(nullable = false, length = 1000)
     private String description;
 
     private String url;

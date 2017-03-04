@@ -23,7 +23,7 @@ public class Task {
     private String summary;
 
     @NotEmpty
-    @Column(name = "description")
+    @Column(name = "description", length = 1000)
     private String description;
 
     @Column(name = "status")
