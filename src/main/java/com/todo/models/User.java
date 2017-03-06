@@ -1,5 +1,6 @@
 package com.todo.models;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -37,7 +38,7 @@ public class User {
     private String fullName;
 
     @Column(name = "is_active")
-    private String isActive;
+    private Boolean isActive;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -58,7 +59,7 @@ public class User {
 
     public User() {}
 
-    public User(String email, String password, String initial, String fullName, String isActive) {
+    public User(String email, String password, String initial, String fullName, Boolean isActive) {
         this.email = email;
         this.password = password;
         this.initial = initial;
@@ -121,11 +122,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 

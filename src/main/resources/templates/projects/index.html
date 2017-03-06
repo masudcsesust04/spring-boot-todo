@@ -1,43 +1,41 @@
 <html layout:decorator="layout">
 
 <div layout:fragment="content">
-    <div class="col-sm-12">
 
-        <h1 class="text-left">Projects</h1>
-        <hr />
+    <h1 class="text-left">Projects</h1>
+    <hr />
 
-        <a class="pull-left" th:href="@{/projects/new}">Add new project</a>
+    <a class="pull-left btn btn-primary" th:href="@{/projects/new}">
+        <i class="glyphicon glyphicon-plus"></i> Add new project
+    </a>
 
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th width="5%">#</th>
-                <th width="15%">Name</th>
-                <th width="30%">Description</th>
-                <th width="15%">URL</th>
-                <th width="7%">Status</th>
-                <th width="10%">Create Date</th>
-                <th width="10%">Update Date</th>
-                <th width="8%">&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody style="text-align: left;">
-            <tr th:each="project : ${projects}">
-                <td th:text="${project.id}"></td>
-                <td th:text="${project.name}"></td>
-                <td th:text="${project.description}"></td>
-                <td th:text="${project.url}"></td>
-                <td th:text="${project.isActive}? 'Active' : 'In active'"></td>
-                <td th:text="${#dates.format(project.createdAt, 'yyyy-MM-dd')}"></td>
-                <td th:text="${#dates.format(project.updatedAt, 'yyyy-MM-dd')}"></td>
-                <td>
-                    <a th:href="@{'/projects/{id}/edit'(id=${project.id})}" th:attr="name=${project.name}">edit</a> |
-                    <a th:href="@{'/projects/{id}/delete'(id=${project.id})}" th:attr="name=${project.name}">delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="20%">Name</th>
+            <th width="30%">Description</th>
+            <th width="20%">URL</th>
+            <th width="7%">Status</th>
+            <th width="10%">Created</th>
+            <th width="8%">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody style="text-align: left;">
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.id}"></td>
+            <td th:text="${project.name}"></td>
+            <td th:text="${project.description}"></td>
+            <td th:text="${project.url}"></td>
+            <td th:text="${project.isActive}? 'Active' : 'In active'"></td>
+            <td th:text="${#dates.format(project.createdAt, 'yyyy-MM-dd')}"></td>
+            <td>
+                <a th:href="@{'/projects/{id}/edit'(id=${project.id})}" th:attr="name=${project.name}">edit</a> |
+                <a th:href="@{'/projects/{id}/delete'(id=${project.id})}" th:attr="name=${project.name}">delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </html>

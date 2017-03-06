@@ -12,76 +12,65 @@
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/sticky-footer-navbar.css}" rel="stylesheet"/>
     <link th:href="@{/static/stylesheets/application.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
-<header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">TODO board</a>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">TODO board</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li th:classappend="${controllerName == 'Home'}? 'active'" sec:authorize="!isAuthenticated()"><a th:href="@{/}">Home</a></li>
+                        <li th:classappend="${controllerName == 'Help'}" sec:authorize="!isAuthenticated()"><a th:href="@{/contact}">Help</a></li>
+                        <li th:classappend="${controllerName == 'Login'}? 'active'" sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+                        <li th:classappend="${controllerName == 'Dash'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/dash}">Dash</a></li>
+                        <li th:classappend="${controllerName == 'Projects'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/projects}">Projects</a></li>
+                        <li th:classappend="${controllerName == 'Tasks'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/tasks}">Tasks</a></li>
+                        <li th:classappend="${controllerName == 'Users'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/users}">Users</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" >
+                        <li>
+                            <a href="#" class="dropdown-toggle" role="button">Welcome, <span sec:authentication="name">Guest</span></a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post" style="margin: 8px 0px;">
+                                <button class="btn btn-danger" type="submit">Sign Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li th:classappend="${controllerName == 'Home'}? 'active'" sec:authorize="!isAuthenticated()"><a th:href="@{/}">Home</a></li>
-                    <li th:classappend="${controllerName == 'Help'}" sec:authorize="!isAuthenticated()"><a th:href="@{/contact}">Help</a></li>
-                    <li th:classappend="${controllerName == 'Login'}? 'active'" sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
-                    <li th:classappend="${controllerName == 'Dash'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/dash}">Dash</a></li>
-                    <li th:classappend="${controllerName == 'Projects'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/projects}">Projects</a></li>
-                    <li th:classappend="${controllerName == 'Tasks'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/tasks}">Tasks</a></li>
-                    <li th:classappend="${controllerName == 'Users'}? 'active'" sec:authorize="isAuthenticated()"><a th:href="@{/users}">Users</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" >
-                    <li>
-                        <a href="#" class="dropdown-toggle" role="button">Welcome, <span sec:authentication="name">Guest</span></a>
-                    </li>
-                    <li sec:authorize="isAuthenticated()">
-                        <form th:action="@{/logout}" method="post" style="margin: 8px 0px;">
-                            <button class="btn btn-danger" type="submit">Sign Out</button>
-                        </form>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
+        </nav>
+    </header>
+
+    <div class="container" layout:fragment="content">
+        <div class="page-header">
+            <h1>Sticky footer with fixed navbar</h1>
         </div>
-    </nav>
-</header>
-
-<div class="starter-template">
-
-    <div class="row" layout:fragment="content">
-        <!-- ============================================================================ -->
-        <!-- This content is only used for static prototyping purposes (natural templates)-->
-        <!-- and is therefore entirely optional.                                          -->
-        <!-- ============================================================================ -->
-        <h1>Static content for prototyping purposes only</h1>
-
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-            Phasellus et placerat elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-            Phasellus et placerat elit.
-        </p>
+        <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
+        <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
 
     </div>
+    <!-- /.container -->
 
-</div>
-<!-- /.container -->
-
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted text-center">&copy; Spring boot todo, 2017</p>
-    </div>
-</footer>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted text-center">&copy; Spring boot todo, 2017</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="masud-rana" id="change-description-column-type">
+    <changeSet id="1" author="masud-rana">
         <modifyDataType catalogName="todo_dev"
                         columnName="description"
                         newDataType="text(1000)"
                         tableName="projects"/>
+
     </changeSet>
 
+    <changeSet id="2" author="masud-rana">
+        <modifyDataType catalogName="todo_dev"
+                        columnName="description"
+                        newDataType="text(1000)"
+                        tableName="tasks" />
+    </changeSet>
+
+    <changeSet id="3" author="masud-rana">
+        <modifyDataType catalogName="todo_dev"
+                        columnName="is_active"
+                        newDataType="boolean"
+                        tableName="users" />
+    </changeSet>
 </databaseChangeLog>
