@@ -13,12 +13,12 @@
         <thead>
         <tr>
             <th width="15%">Project</th>
-            <th width="43%">Summary</th>
+            <th width="40%">Summary</th>
             <th width="10%">Date</th>
-            <th width="8%">Log</th>
-            <th width="8%">Status</th>
-            <th width="8%">Created</th>
-            <th width="8%">Action</th>
+            <th width="5%">Log</th>
+            <th width="10%">Status</th>
+            <th width="10%">Created</th>
+            <th width="10%">Action</th>
         </tr>
         </thead>
         <tbody style="text-align: left;">
@@ -32,8 +32,12 @@
             <td th:text="${task.status}"></td>
             <td th:text="${#dates.format(task.createdAt, 'yyyy-MM-dd')}"></td>
             <td>
-                <a th:href="@{'/tasks/{id}/edit'(id=${task.id})}" th:attr="name=${task.summary}">edit</a> |
-                <a th:href="@{'/tasks/{id}/delete'(id=${task.id})}" th:attr="name=${task.summary}">delete</a>
+                <a th:href="@{'/tasks/{id}/edit'(id=${task.id})}" class="btn btn-xs btn-default" title="Edit">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+                <a th:href="@{'/tasks/{id}/delete'(id=${task.id})}" class="btn btn-xs btn-default" title="Delete">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
             </td>
         </tr>
         </tbody>
