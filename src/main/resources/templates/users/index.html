@@ -2,20 +2,19 @@
 
 <div layout:fragment="content">
 
-    <h1 class="text-left">Users</h1>
+    <h3 class="text-left">Users</h3>
     <hr />
 
-    <a class="pull-left btn btn-primary" th:href="@{/users/new}">
+    <a class="pull-left btn btn-sm btn-primary" th:href="@{/users/new}">
         <i class="glyphicon glyphicon-plus"></i> Add new user
     </a>
 
     <table class="table table-hover">
         <thead>
         <tr>
-            <th width="5%">#</th>
             <th width="10%">Initial</th>
             <th width="25%">Name</th>
-            <th width="30%">Email</th>
+            <th width="35%">Email</th>
             <th width="10%">Is active</th>
             <th width="10%">Created</th>
             <th width="10%">Action</th>
@@ -23,7 +22,6 @@
         </thead>
         <tbody style="text-align: left;">
         <tr th:each="user : ${users}">
-            <td th:text="${user.id}"></td>
             <td th:text="${user.initial}"></td>
             <td>
                 <a th:href="@{'/users/{id}'(id=${user.id})}" th:text="${user.fullName}">show</a>
@@ -45,6 +43,6 @@
         </tr>
         </tbody>
     </table>
-</div>
 
+</div>
 </html>

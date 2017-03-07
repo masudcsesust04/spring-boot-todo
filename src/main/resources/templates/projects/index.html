@@ -2,19 +2,19 @@
 
 <div layout:fragment="content">
 
-    <h1 class="text-left">Projects</h1>
+    <h3 th:text="'Projects #' + ${projects.size()}">Projects </h3>
     <hr />
 
-    <a class="pull-left btn btn-primary" th:href="@{/projects/new}">
+    <a class="pull-left btn btn-sm btn-primary" th:href="@{/projects/new}">
         <i class="glyphicon glyphicon-plus"></i> Add new project
     </a>
 
+    <!-- Table -->
     <table class="table table-hover">
         <thead>
         <tr>
-            <th width="5%">#</th>
             <th width="15%">Name</th>
-            <th width="30%">Description</th>
+            <th width="35%">Description</th>
             <th width="20%">URL</th>
             <th width="10%">Status</th>
             <th width="10%">Created</th>
@@ -23,21 +23,23 @@
         </thead>
         <tbody style="text-align: left;">
         <tr th:each="project : ${projects}">
-            <td th:text="${project.id}"></td>
-            <td th:text="${project.name}"></td>
+            <td>
+                <a th:href="@{'/projects/{id}'(id=${project.id})}" th:text="${project.name}"></a>
+            </td>
             <td th:text="${project.description}"></td>
             <td th:text="${project.url}"></td>
             <td th:text="${project.isActive}? 'Active' : 'In active'"></td>
             <td th:text="${#dates.format(project.createdAt, 'yyyy-MM-dd')}"></td>
             <td>
                 <a th:href="@{'/projects/{id}/edit'(id=${project.id})}" class="btn btn-xs btn-default" title="Edit">
-                    <i class="glyphicon glyphicon-pencil"></i></a>
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
                 <a th:href="@{'/projects/{id}/delete'(id=${project.id})}" class="btn btn-xs btn-default" title="Delete">
-                    <i class="glyphicon glyphicon-trash"></i></a>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
 </html>

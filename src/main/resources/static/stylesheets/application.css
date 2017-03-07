@@ -8,6 +8,9 @@ ul.navbar-right{
     padding: 5px 20px;
     text-align: left;
 }
+.top-margin {
+    margin-top: 15px;
+}
 footer{
     padding-top: 10px;
 }
